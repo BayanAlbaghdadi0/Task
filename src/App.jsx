@@ -29,6 +29,7 @@ function App() {
             )
           }
         />
+        <Route path="/CreateAdmin" element={<CreateAdmin/>}/>
         <Route
           path="/Dashboard"
           element={
