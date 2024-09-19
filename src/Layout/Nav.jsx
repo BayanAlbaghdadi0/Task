@@ -30,8 +30,8 @@ export const Nav = () => {
             tabIndex={0}
             className="menu menu-sm dropdown-content bg-base-100 rounded-box z-[1] mt-3 w-52 p-2 shadow"
           >
-            <Link to={"/CreateAdmin"} className=" inline-block btn-sm">
-              <button className="btn btn-outline btn-info">CreateAdmin</button>
+            <Link to={"/CreateAdmin"} className=" inline-block btn-sm my-4  ">
+              <button className="btn btn-outline  btn-info btn-sm mx-8">CreateAdmin</button>
             </Link>
             <button className="btn btn-outline btn-error  btn-sm ">
               {!loading ? (
