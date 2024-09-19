@@ -180,7 +180,7 @@ export const CreateAdmin = () => {
           >
             <option className="bg-black" value=""> citys</option>
             {cities.map((city) => (
-              <option  key={city.id} value={city.id}>
+              <option className=" text-black" key={city.id} value={city.id}>
                 {city.name}
               </option>
             ))}
@@ -274,9 +274,9 @@ export const CreateAdmin = () => {
             required
             className="mt-1 p-2 w-full border bg-transparent border-gray-300 rounded-md shadow-sm focus:outline-none transation-all focus:ring-indigo-500 focus:border-indigo-900"
           >
-            <option value="">Gender </option>
-            <option value="1">male</option>
-            <option value="2">Female</option>
+            <option className=" text-black" value="">Gender </option>
+            <option className=" text-black" value="1">male</option>
+            <option  className=" text-black" value="2">Female</option>
           </select>
         </div>
 
@@ -313,9 +313,9 @@ export const CreateAdmin = () => {
             required
             className="mt-1 p-2 w-full border bg-transparent border-gray-300 rounded-md shadow-sm focus:outline-none transation-all focus:ring-indigo-500 focus:border-indigo-900"
           >
-            <option value="">اختر العيادة</option>
+            <option className=" text-black" value="">اختر العيادة</option>
             {clinics.map((clinic) => (
-              <option key={clinic.id} value={clinic.id}>
+              <option className=" text-black" key={clinic.id} value={clinic.id}>
                 {clinic.name}
               </option>
             ))}
@@ -337,9 +337,9 @@ export const CreateAdmin = () => {
             required
             className="mt-1 p-2 w-full border bg-transparent border-gray-300 rounded-md shadow-sm focus:outline-none transation-all focus:ring-indigo-500 focus:border-indigo-900"
           >
-            <option value="">اختر التخصص</option>
+            <option className=" text-black" value="">اختر التخصص</option>
             {specializations.map((specialization) => (
-              <option key={specialization.id} value={specialization.id}>
+              <option className=" text-black" key={specialization.id} value={specialization.id}>
                 {specialization.name}
               </option>
             ))}
