@@ -92,7 +92,6 @@ export const CreateAdmin = () => {
       console.log(responseData);
       if (response.ok) {
         setMessage({ type: "success", content: "تم إنشاء المسؤول بنجاح" });
-        // إعادة تعيين النموذج
         setFormData({
           username: "",
           password: "",
@@ -118,7 +117,7 @@ export const CreateAdmin = () => {
   };
 
   return (
-    <div className="max-w-4xl mx-auto bg-slate-100 p-8 shadow-lg rounded-lg">
+    <div className="max-w-5xl mx-auto  p-8 shadow-lg rounded-lg bg-gradient-to-tr from-sky-300 via-sky-900 to-sky-500 " >
       <h2 className="text-2xl font-bold mb-6 text-center">Create New Admin </h2>
       {message.content && (
         <div
@@ -127,7 +126,7 @@ export const CreateAdmin = () => {
           {message.content}
         </div>
       )}
-      <form onSubmit={handleSubmit} className="space-y-6">
+      <form onSubmit={handleSubmit} className="space-y-6 w-2/3 m-auto text-white ">
         <div>
           <label
             htmlFor="username"
@@ -142,7 +141,7 @@ export const CreateAdmin = () => {
             value={formData.username}
             onChange={handleInputChange}
             required
-            className="mt-1 p-2 w-full border border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500"
+            className="mt-1 p-2 w-full border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500"
           />
         </div>
 
@@ -160,7 +159,7 @@ export const CreateAdmin = () => {
             value={formData.password}
             onChange={handleInputChange}
             required
-            className="mt-1 p-2 w-full border border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500"
+            className="mt-1 p-2 w-full border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500"
           />
         </div>
 
@@ -177,11 +176,11 @@ export const CreateAdmin = () => {
             value={formData.city_id}
             onChange={handleInputChange}
             required
-            className="mt-1 p-2 w-full border border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500"
+            className="mt-1 p-2 w-full border bg-transparent border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500"
           >
-            <option value=""> citys</option>
+            <option className="bg-black" value=""> citys</option>
             {cities.map((city) => (
-              <option key={city.id} value={city.id}>
+              <option  key={city.id} value={city.id}>
                 {city.name}
               </option>
             ))}
@@ -202,7 +201,7 @@ export const CreateAdmin = () => {
             value={formData.name_ar}
             onChange={handleInputChange}
             required
-            className="mt-1 p-2 w-full border border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500"
+            className="mt-1 p-2 w-full border bg-transparent border-gray-300 rounded-md shadow-sm focus:outline-none transation-all focus:ring-indigo-500 focus:border-indigo-900"
           />
         </div>
 
@@ -220,7 +219,7 @@ export const CreateAdmin = () => {
             value={formData.name_en}
             onChange={handleInputChange}
             required
-            className="mt-1 p-2 w-full border border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500"
+            className="mt-1 p-2 w-full border bg-transparent border-gray-300 rounded-md shadow-sm focus:outline-none transation-all focus:ring-indigo-500 focus:border-indigo-900"
           />
         </div>
 
@@ -238,7 +237,7 @@ export const CreateAdmin = () => {
             value={formData.phone_number}
             onChange={handleInputChange}
             required
-            className="mt-1 p-2 w-full border border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500"
+            className="mt-1 p-2 w-full border bg-transparent border-gray-300 rounded-md shadow-sm focus:outline-none transation-all focus:ring-indigo-500 focus:border-indigo-900"
           />
         </div>
 
@@ -256,7 +255,7 @@ export const CreateAdmin = () => {
             value={formData.email}
             onChange={handleInputChange}
             required
-            className="mt-1 p-2 w-full border border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500"
+            className="mt-1 p-2 w-full border bg-transparent border-gray-300 rounded-md shadow-sm focus:outline-none transation-all focus:ring-indigo-500 focus:border-indigo-900"
           />
         </div>
 
@@ -273,7 +272,7 @@ export const CreateAdmin = () => {
             value={formData.gender}
             onChange={handleInputChange}
             required
-            className="mt-1 p-2 w-full border border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500"
+            className="mt-1 p-2 w-full border bg-transparent border-gray-300 rounded-md shadow-sm focus:outline-none transation-all focus:ring-indigo-500 focus:border-indigo-900"
           >
             <option value="">Gender </option>
             <option value="1">male</option>
@@ -295,7 +294,7 @@ export const CreateAdmin = () => {
             value={formData.birth_date}
             onChange={handleDateChange}
             required
-            className="mt-1 p-2 w-full border border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500"
+            className="mt-1 p-2 w-full border bg-transparent border-gray-300 rounded-md shadow-sm focus:outline-none transation-all focus:ring-indigo-500 focus:border-indigo-900"
           />
         </div>
 
@@ -312,7 +311,7 @@ export const CreateAdmin = () => {
             value={formData.clinic_id}
             onChange={handleInputChange}
             required
-            className="mt-1 p-2 w-full border border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500"
+            className="mt-1 p-2 w-full border bg-transparent border-gray-300 rounded-md shadow-sm focus:outline-none transation-all focus:ring-indigo-500 focus:border-indigo-900"
           >
             <option value="">اختر العيادة</option>
             {clinics.map((clinic) => (
@@ -336,7 +335,7 @@ export const CreateAdmin = () => {
             value={formData.specialization_id}
             onChange={handleInputChange}
             required
-            className="mt-1 p-2 w-full border border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500"
+            className="mt-1 p-2 w-full border bg-transparent border-gray-300 rounded-md shadow-sm focus:outline-none transation-all focus:ring-indigo-500 focus:border-indigo-900"
           >
             <option value="">اختر التخصص</option>
             {specializations.map((specialization) => (
@@ -359,12 +358,12 @@ export const CreateAdmin = () => {
             name="description"
             value={formData.description}
             onChange={handleInputChange}
-            className="mt-1 p-2 w-full border border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500"
+            className="mt-1 p-2 w-full border bg-transparent border-gray-300 rounded-md shadow-sm focus:outline-none transation-all focus:ring-indigo-500 focus:border-indigo-900"
           ></textarea>
         </div>
         <div>
-          <label className="block text-sm font-medium text-gray-700">Permissions:</label>
-          <div className="space-y-2">
+          <label className="block text-sm font-medium text-slate-900">Permissions:</label>
+          <div className="space-y-2 space-x-2 text-slate-900">
             <label>
               <input
                 type="checkbox"
