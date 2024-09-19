@@ -130,7 +130,7 @@ export const CreateAdmin = () => {
         <div>
           <label
             htmlFor="username"
-            className="block text-sm font-medium text-gray-700"
+            className="block text-lg "
           >
             User name
           </label>
@@ -148,7 +148,7 @@ export const CreateAdmin = () => {
         <div>
           <label
             htmlFor="password"
-            className="block text-sm font-medium text-gray-700"
+            className="block text-lg "
           >
             password
           </label>
@@ -166,7 +166,7 @@ export const CreateAdmin = () => {
         <div>
           <label
             htmlFor="city_id"
-            className="block text-sm font-medium text-gray-700"
+            className="block text-lg "
           >
             city:
           </label>
@@ -190,7 +190,7 @@ export const CreateAdmin = () => {
         <div>
           <label
             htmlFor="name_ar"
-            className="block text-sm font-medium text-gray-700"
+            className="block text-lg "
           >
             AR user name:
           </label>
@@ -208,7 +208,7 @@ export const CreateAdmin = () => {
         <div>
           <label
             htmlFor="name_en"
-            className="block text-sm font-medium text-gray-700"
+            className="block text-lg "
           >
             EN user name:
           </label>
@@ -226,7 +226,7 @@ export const CreateAdmin = () => {
         <div>
           <label
             htmlFor="phone_number"
-            className="block text-sm font-medium text-gray-700"
+            className="block text-lg "
           >
             phon number:
           </label>
@@ -244,7 +244,7 @@ export const CreateAdmin = () => {
         <div>
           <label
             htmlFor="email"
-            className="block text-sm font-medium text-gray-700"
+            className="block text-lg "
           >
             Email:
           </label>
@@ -262,7 +262,7 @@ export const CreateAdmin = () => {
         <div>
           <label
             htmlFor="gender"
-            className="block text-sm font-medium text-gray-700"
+            className="block text-lg "
           >
             Gender:
           </label>
@@ -283,7 +283,7 @@ export const CreateAdmin = () => {
         <div>
           <label
             htmlFor="birth_date"
-            className="block text-sm font-medium text-gray-700"
+            className="block text-lg "
           >
             birth date:
           </label>
@@ -301,7 +301,7 @@ export const CreateAdmin = () => {
         <div>
           <label
             htmlFor="clinic_id"
-            className="block text-sm font-medium text-gray-700"
+            className="block text-lg "
           >
             العيادة:
           </label>
