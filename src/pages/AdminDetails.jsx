@@ -60,7 +60,8 @@ export const AdminDetails = () => {
       if (!response.ok) {
         throw new Error("Failed to update permissions");
       }
-
+        const newData = await response.json()
+        console.log(newData);
       alert("Permissions updated successfully!");
     } catch (err) {
       setError("Failed to update permissions.");
