@@ -31,7 +31,14 @@ export const Nav = () => {
             className="menu menu-sm dropdown-content bg-base-100 rounded-box z-[1] mt-3 w-52 p-2 shadow"
           >
             <Link to={"/CreateAdmin"} className=" inline-block btn-sm my-4  ">
-              <button className="btn btn-outline  btn-info btn-sm mx-8">CreateAdmin</button>
+              <button className="btn btn-outline  btn-info btn-sm mx-8">
+                CreateAdmin
+              </button>
+            </Link>
+            <Link to={"/CreateClinic"} className=" inline-block btn-sm my-4  ">
+              <button className="btn btn-outline  btn-info btn-sm mx-8">
+              CreateClinic
+              </button>
             </Link>
             <button className="btn btn-outline btn-error  btn-sm ">
               {!loading ? (
@@ -40,7 +47,7 @@ export const Nav = () => {
                   className="w-6 h-6 text-white cursor-pointer"
                 />
               ) : (
-                <span className="loading loading-spinner"></span>
+                <span className="loading loading-spinner text-error"></span>
               )}
             </button>
           </ul>
@@ -52,6 +59,11 @@ export const Nav = () => {
       </div>
       <div className="navbar-end hidden lg:flex">
         <div className="flex items-center gap-8 ">
+          <Link to={"/CreateClinic"} className=" inline-block  ">
+            <button className="btn btn-outline  btn-info btn-sm ">
+            CreateClinic
+            </button>
+          </Link>
           <Link to={"/CreateAdmin"} className=" inline-block  ">
             <button className="btn btn-outline btn-info btn-sm ">
               CreateAdmin

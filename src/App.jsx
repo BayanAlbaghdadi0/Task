@@ -7,6 +7,7 @@ import { UpdateClinic } from "./pages/UpdateClinic";
 import { Navigate } from "react-router-dom";
 import { CreateAdmin } from "./pages/CreateAdmin";
 import { AdminDashboard } from "./pages/AdminDaghboard";
+import { CreateClinic } from "./pages/CreateClinic";
 
 function App() {
   const { user } = useAuth();
@@ -29,7 +30,41 @@ function App() {
             )
           }
         />
-        <Route path="/CreateAdmin" element={<CreateAdmin/>}/>
+        <Route
+          path="/login"
+          element={
+            user ? (
+              isSuperAdmin ? (
+                <Navigate to="/Dashboard" />
+              ) : (
+                <Navigate to="/admin" />
+              )
+            ) : (
+              <Login />
+            )
+          }
+        />
+        {/* Super Admin protected routes */}
+        <Route
+          path="/CreateAdmin"
+          element={
+            user && isSuperAdmin ? (
+              <CreateAdmin />
+            ) : (
+              <Navigate to="/login" />
+            )
+          }
+        />
+        <Route
+          path="/CreateClinic"
+          element={
+            user && isSuperAdmin ? (
+              <CreateClinic />
+            ) : (
+              <Navigate to="/login" />
+            )
+          }
+        />
         <Route
           path="/Dashboard"
           element={
