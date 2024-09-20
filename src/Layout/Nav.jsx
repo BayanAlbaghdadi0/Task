@@ -64,6 +64,11 @@ export const Nav = () => {
             CreateClinic
             </button>
           </Link>
+          <Link to={"/Dashboard"} className=" inline-block  ">
+            <button className="btn btn-outline  btn-info btn-sm ">
+            Dashboard
+            </button>
+          </Link>
           <Link to={"/CreateAdmin"} className=" inline-block  ">
             <button className="btn btn-outline btn-info btn-sm ">
               CreateAdmin

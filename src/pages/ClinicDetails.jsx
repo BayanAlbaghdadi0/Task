@@ -5,6 +5,7 @@ export const ClinicDetails = ({ clinicId }) => {
   const [isActive, setIsActive] = useState(false);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  
   const [updateData, setUpdateData] = useState({
     name_ar: "",
     name_en: "",
@@ -18,12 +19,15 @@ export const ClinicDetails = ({ clinicId }) => {
   useEffect(() => {
     const fetchClinicDetails = async () => {
       try {
-        const response = await fetch(`https://medical-clinic.serv00.net/api/clinic/${clinicId}`, {
-          method: "GET",
-          headers: {
-            Authorization: `Bearer ${localStorage.getItem("token")}`,  
-          },
-        });
+        const response = await fetch(
+          `https://medical-clinic.serv00.net/api/clinic/${clinicId}`,
+          {
+            method: "GET",
+            headers: {
+              Authorization: `Bearer ${localStorage.getItem("token")}`,
+            },
+          }
+        );
         const data = await response.json();
         if (response.ok) {
           setClinic(data.data);
@@ -51,12 +55,15 @@ export const ClinicDetails = ({ clinicId }) => {
 
   const toggleActiveStatus = async () => {
     try {
-      const response = await fetch(`https://medical-clinic.serv00.net/api/clinic/active/${clinicId}`, {
-        method: "GET",
-        headers: {
-          Authorization: `Bearer ${localStorage.getItem("token")}`, 
-        },
-      });
+      const response = await fetch(
+        `https://medical-clinic.serv00.net/api/clinic/active/${clinicId}`,
+        {
+          method: "GET",
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem("token")}`,
+          },
+        }
+      );
       const data = await response.json();
       if (response.ok) {
         setIsActive(data.data.is_active);
@@ -71,14 +78,17 @@ export const ClinicDetails = ({ clinicId }) => {
   const updateClinicDetails = async (e) => {
     e.preventDefault();
     try {
-      const response = await fetch(`https://medical-clinic.serv00.net/api/clinic/${clinicId}`, {
-        method: "PUT",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${localStorage.getItem("token")}`, // 
-        },
-        body: JSON.stringify(updateData),
-      });
+      const response = await fetch(
+        `https://medical-clinic.serv00.net/api/clinic/${clinicId}`,
+        {
+          method: "PUT",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${localStorage.getItem("token")}`, //
+          },
+          body: JSON.stringify(updateData),
+        }
+      );
       const data = await response.json();
       if (response.ok) {
         setClinic(data.data);
@@ -99,7 +109,9 @@ export const ClinicDetails = ({ clinicId }) => {
       <h1>Clinic Details</h1>
       <p>Arabic Name: {clinic.name_ar}</p>
       <p>English Name: {clinic.name_en}</p>
-      <p>Address: {clinic.address_ar} / {clinic.address_en}</p>
+      <p>
+        Address: {clinic.address_ar} / {clinic.address_en}
+      </p>
       <p>Telephone: {clinic.telephone}</p>
       <p>URL Name: {clinic.url_name}</p>
       <p>Color: {clinic.color}</p>
@@ -115,7 +127,9 @@ export const ClinicDetails = ({ clinicId }) => {
           <input
             type="text"
             value={updateData.name_ar}
-            onChange={(e) => setUpdateData({ ...updateData, name_ar: e.target.value })}
+            onChange={(e) =>
+              setUpdateData({ ...updateData, name_ar: e.target.value })
+            }
           />
         </div>
         <div>
@@ -123,7 +137,9 @@ export const ClinicDetails = ({ clinicId }) => {
           <input
             type="text"
             value={updateData.name_en}
-            onChange={(e) => setUpdateData({ ...updateData, name_en: e.target.value })}
+            onChange={(e) =>
+              setUpdateData({ ...updateData, name_en: e.target.value })
+            }
           />
         </div>
         <div>
@@ -131,7 +147,9 @@ export const ClinicDetails = ({ clinicId }) => {
           <input
             type="text"
             value={updateData.address_ar}
-            onChange={(e) => setUpdateData({ ...updateData, address_ar: e.target.value })}
+            onChange={(e) =>
+              setUpdateData({ ...updateData, address_ar: e.target.value })
+            }
           />
         </div>
         <div>
@@ -139,7 +157,9 @@ export const ClinicDetails = ({ clinicId }) => {
           <input
             type="text"
             value={updateData.address_en}
-            onChange={(e) => setUpdateData({ ...updateData, address_en: e.target.value })}
+            onChange={(e) =>
+              setUpdateData({ ...updateData, address_en: e.target.value })
+            }
           />
         </div>
         <div>
@@ -147,7 +167,9 @@ export const ClinicDetails = ({ clinicId }) => {
           <input
             type="text"
             value={updateData.telephone}
-            onChange={(e) => setUpdateData({ ...updateData, telephone: e.target.value })}
+            onChange={(e) =>
+              setUpdateData({ ...updateData, telephone: e.target.value })
+            }
           />
         </div>
         <div>
@@ -155,7 +177,9 @@ export const ClinicDetails = ({ clinicId }) => {
           <input
             type="text"
             value={updateData.url_name}
-            onChange={(e) => setUpdateData({ ...updateData, url_name: e.target.value })}
+            onChange={(e) =>
+              setUpdateData({ ...updateData, url_name: e.target.value })
+            }
           />
         </div>
         <div>
@@ -163,7 +187,9 @@ export const ClinicDetails = ({ clinicId }) => {
           <input
             type="text"
             value={updateData.color}
-            onChange={(e) => setUpdateData({ ...updateData, color: e.target.value })}
+            onChange={(e) =>
+              setUpdateData({ ...updateData, color: e.target.value })
+            }
           />
         </div>
         <button type="submit">Update Clinic</button>
@@ -171,5 +197,3 @@ export const ClinicDetails = ({ clinicId }) => {
     </div>
   );
 };
-
- 

@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Nav } from "../Layout/Nav";
-
+import { Link } from "react-router-dom";
 export const Dashboard = () => {
   const [clinics, setClinics] = useState([]);
   const [admins, setAdmins] = useState([]); // State for storing admins
@@ -67,6 +67,7 @@ export const Dashboard = () => {
       <h1 className="text-4xl bg-gradient-to-tl text-center leading-relaxed from-indigo-600 to-sky-500 bg-clip-text text-transparent">
         Welcome Again Sir!
       </h1>
+
       <div className="flex justify-center items-center">
         {error && <p className="text-red-500">{error}</p>}
         {loading && <span className="loading loading-ring w-72 "></span>}
@@ -114,6 +115,7 @@ export const Dashboard = () => {
       {/* Admin Table */}
       <div className="overflow-x-auto mt-8">
         <h2 className="text-3xl font-bold text-center mb-4">Admins</h2>
+        <p className="text-center">click on admin name to give hem a paramitiones</p>
         <table className="table">
           <thead className="font-extrabold">
             <tr>
@@ -124,10 +126,14 @@ export const Dashboard = () => {
             </tr>
           </thead>
           <tbody>
-            {admins.map((admin) => (
+          {admins.map((admin) => (
               <tr key={admin.id}>
-                <td className="text-center">{admin.id}</td>
-                <td className="text-center">{admin.username}</td>
+                <td className="text-center">
+                  <Link to={`/admin/${admin.id}`}>{admin.id}</Link>
+                </td>
+                <td className="text-center">
+                  <Link to={`/admin/${admin.id}`}>{admin.username}</Link>
+                </td>
                 <td className="text-center">{admin.details.email || "N/A"}</td>
                 <td className="text-center">{admin.details.phone_number || "N/A"}</td>
               </tr>

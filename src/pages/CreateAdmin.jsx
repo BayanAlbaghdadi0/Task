@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { Nav } from "../Layout/Nav";
 
 export const CreateAdmin = () => {
   const [formData, setFormData] = useState({
@@ -19,23 +20,42 @@ export const CreateAdmin = () => {
   const [cities, setCities] = useState([]);
   const [clinics, setClinics] = useState([]);
   const [specializations, setSpecializations] = useState([]);
+  const [permissions, setPermissions] = useState([]);
   const [message, setMessage] = useState({ type: "", content: "" });
+  const [selectedPermissions, setSelectedPermissions] = useState([]);
+
   const token = localStorage.getItem("token");
 
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const [citiesRes, clinicsRes, specializationsRes] = await Promise.all([
-          fetch("https://medical-clinic.serv00.net/api/city", {
-            headers: { 'Accept': 'application/json',Authorization: `Bearer ${token}` }
-          }),
-          fetch("https://medical-clinic.serv00.net/api/clinic", {
-            headers: { 'Accept': 'application/json',Authorization: `Bearer ${token}` }
-          }),
-          fetch("https://medical-clinic.serv00.net/api/specialization", {
-            headers: { 'Accept': 'application/json',"Authorization": `Bearer ${token}` }
-          })
-        ]);
+        const [citiesRes, clinicsRes, specializationsRes, permissionsRes] =
+          await Promise.all([
+            fetch("https://medical-clinic.serv00.net/api/city", {
+              headers: {
+                Accept: "application/json",
+                Authorization: `Bearer ${token}`,
+              },
+            }),
+            fetch("https://medical-clinic.serv00.net/api/clinic", {
+              headers: {
+                Accept: "application/json",
+                Authorization: `Bearer ${token}`,
+              },
+            }),
+            fetch("https://medical-clinic.serv00.net/api/specialization", {
+              headers: {
+                Accept: "application/json",
+                Authorization: `Bearer ${token}`,
+              },
+            }),
+            fetch("https://medical-clinic.serv00.net/api/permissions/admin", {
+              headers: {
+                Accept: "application/json",
+                Authorization: `Bearer ${token}`,
+              },
+            }),
+          ]);
 
         if (!citiesRes.ok || !clinicsRes.ok || !specializationsRes.ok) {
           throw new Error("");
@@ -44,10 +64,16 @@ export const CreateAdmin = () => {
         const citiesData = await citiesRes.json();
         const clinicsData = await clinicsRes.json();
         const specializationsData = await specializationsRes.json();
-        console.log(citiesData.data,clinicsData.data,specializationsData.data);
+        const permissionsData = await permissionsRes.json();
+        console.log(
+          citiesData.data,
+          clinicsData.data,
+          specializationsData.data
+        );
         setCities(citiesData.data);
         setClinics(clinicsData.data);
         setSpecializations(specializationsData.data);
+        setPermissions(permissionsData.data.slice(4, 8)); // Assuming the permissions are in data
       } catch (error) {
         console.error(error);
         setMessage({ type: "error", content: "faild to fetch data" });
@@ -64,12 +90,20 @@ export const CreateAdmin = () => {
   const handleDateChange = (e) => {
     setFormData((prevData) => ({ ...prevData, birth_date: e.target.value }));
   };
+  // const handlePermissionChange = (e) => {
+  //   const { value, checked } = e.target;
+  //   if (checked) {
+  //     setSelectedPermissions((prev) => [...prev, value]);
+  //   } else {
+  //     setSelectedPermissions((prev) => prev.filter((perm) => perm !== value));
+  //   }
+  // };
   const handlePermissionChange = (e) => {
     const { value, checked } = e.target;
     if (checked) {
-      setPermissions((prev) => [...prev, value]);
+      setSelectedPermissions((prev) => [...prev, value]);
     } else {
-      setPermissions((prev) => prev.filter((perm) => perm !== value));
+      setSelectedPermissions((prev) => prev.filter((perm) => perm !== value));
     }
   };
 
@@ -77,6 +111,7 @@ export const CreateAdmin = () => {
     console.log(formData);
     e.preventDefault();
     try {
+      const payload = { ...formData, permissions: [selectedPermissions] };
       const response = await fetch(
         "https://medical-clinic.serv00.net/api/actor",
         {
@@ -85,11 +120,10 @@ export const CreateAdmin = () => {
             "Content-Type": "application/json",
             Authorization: `Bearer ${localStorage.getItem("token")}`,
           },
-          body: JSON.stringify(formData),
+          body: JSON.stringify(payload),
         }
       );
-      const responseData = await response.json(); 
-      console.log(responseData);
+      const responseData = await response.json();
       if (response.ok) {
         setMessage({ type: "success", content: "تم إنشاء المسؤول بنجاح" });
         setFormData({
@@ -108,7 +142,6 @@ export const CreateAdmin = () => {
           description: "",
         });
       } else {
-        console.error("Server Response:", responseData);
         throw new Error(responseData.message || "فشل في إنشاء المسؤول");
       }
     } catch (error) {
@@ -117,8 +150,9 @@ export const CreateAdmin = () => {
   };
 
   return (
-    <div className="max-w-5xl mx-auto  p-8 shadow-lg rounded-lg bg-gradient-to-tr from-sky-300 via-sky-900 to-sky-500 " >
-      <h2 className="text-2xl font-bold mb-6 text-center">Create New Admin </h2>
+    <div className="max-w-5xl mx-auto  p-8 shadow-lg rounded-lg bg-gradient-to-tr from-sky-300 via-sky-900 to-sky-500 ">
+      <Nav/>
+      <h2 className="text-2xl font-bold mb-6 mt-4 text-center">Create New Admin </h2>
       {message.content && (
         <div
           className={`message ${message.type} mb-4 p-4 rounded-lg bg-slate-900 text-center`}
@@ -126,12 +160,12 @@ export const CreateAdmin = () => {
           {message.content}
         </div>
       )}
-      <form onSubmit={handleSubmit} className="space-y-6 w-2/3 m-auto text-white ">
+      <form
+        onSubmit={handleSubmit}
+        className="space-y-6 w-2/3 m-auto text-white "
+      >
         <div>
-          <label
-            htmlFor="username"
-            className="block text-lg "
-          >
+          <label htmlFor="username" className="block text-lg ">
             User name
           </label>
           <input
@@ -146,10 +180,7 @@ export const CreateAdmin = () => {
         </div>
 
         <div>
-          <label
-            htmlFor="password"
-            className="block text-lg "
-          >
+          <label htmlFor="password" className="block text-lg ">
             password
           </label>
           <input
@@ -164,10 +195,7 @@ export const CreateAdmin = () => {
         </div>
 
         <div>
-          <label
-            htmlFor="city_id"
-            className="block text-lg "
-          >
+          <label htmlFor="city_id" className="block text-lg ">
             city:
           </label>
           <select
@@ -178,7 +206,10 @@ export const CreateAdmin = () => {
             required
             className="mt-1 p-2 w-full border bg-transparent border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500"
           >
-            <option className="bg-black" value=""> citys</option>
+            <option className="bg-black" value="">
+              {" "}
+              citys
+            </option>
             {cities.map((city) => (
               <option className=" text-black" key={city.id} value={city.id}>
                 {city.name}
@@ -188,10 +219,7 @@ export const CreateAdmin = () => {
         </div>
 
         <div>
-          <label
-            htmlFor="name_ar"
-            className="block text-lg "
-          >
+          <label htmlFor="name_ar" className="block text-lg ">
             AR user name:
           </label>
           <input
@@ -206,10 +234,7 @@ export const CreateAdmin = () => {
         </div>
 
         <div>
-          <label
-            htmlFor="name_en"
-            className="block text-lg "
-          >
+          <label htmlFor="name_en" className="block text-lg ">
             EN user name:
           </label>
           <input
@@ -224,10 +249,7 @@ export const CreateAdmin = () => {
         </div>
 
         <div>
-          <label
-            htmlFor="phone_number"
-            className="block text-lg "
-          >
+          <label htmlFor="phone_number" className="block text-lg ">
             phon number:
           </label>
           <input
@@ -242,10 +264,7 @@ export const CreateAdmin = () => {
         </div>
 
         <div>
-          <label
-            htmlFor="email"
-            className="block text-lg "
-          >
+          <label htmlFor="email" className="block text-lg ">
             Email:
           </label>
           <input
@@ -260,10 +279,7 @@ export const CreateAdmin = () => {
         </div>
 
         <div>
-          <label
-            htmlFor="gender"
-            className="block text-lg "
-          >
+          <label htmlFor="gender" className="block text-lg ">
             Gender:
           </label>
           <select
@@ -274,17 +290,20 @@ export const CreateAdmin = () => {
             required
             className="mt-1 p-2 w-full border bg-transparent border-gray-300 rounded-md shadow-sm focus:outline-none transation-all focus:ring-indigo-500 focus:border-indigo-900"
           >
-            <option className=" text-black" value="">Gender </option>
-            <option className=" text-black" value="1">male</option>
-            <option  className=" text-black" value="2">Female</option>
+            <option className=" text-black" value="">
+              Gender{" "}
+            </option>
+            <option className=" text-black" value="1">
+              male
+            </option>
+            <option className=" text-black" value="2">
+              Female
+            </option>
           </select>
         </div>
 
         <div>
-          <label
-            htmlFor="birth_date"
-            className="block text-lg "
-          >
+          <label htmlFor="birth_date" className="block text-lg ">
             birth date:
           </label>
           <input
@@ -299,10 +318,7 @@ export const CreateAdmin = () => {
         </div>
 
         <div>
-          <label
-            htmlFor="clinic_id"
-            className="block text-lg "
-          >
+          <label htmlFor="clinic_id" className="block text-lg ">
             العيادة:
           </label>
           <select
@@ -313,7 +329,9 @@ export const CreateAdmin = () => {
             required
             className="mt-1 p-2 w-full border bg-transparent border-gray-300 rounded-md shadow-sm focus:outline-none transation-all focus:ring-indigo-500 focus:border-indigo-900"
           >
-            <option className=" text-black" value="">اختر العيادة</option>
+            <option className=" text-black" value="">
+              اختر العيادة
+            </option>
             {clinics.map((clinic) => (
               <option className=" text-black" key={clinic.id} value={clinic.id}>
                 {clinic.name}
@@ -337,9 +355,15 @@ export const CreateAdmin = () => {
             required
             className="mt-1 p-2 w-full border bg-transparent border-gray-300 rounded-md shadow-sm focus:outline-none transation-all focus:ring-indigo-500 focus:border-indigo-900"
           >
-            <option className=" text-black" value="">اختر التخصص</option>
+            <option className=" text-black" value="">
+              اختر التخصص
+            </option>
             {specializations.map((specialization) => (
-              <option className=" text-black" key={specialization.id} value={specialization.id}>
+              <option
+                className=" text-black"
+                key={specialization.id}
+                value={specialization.id}
+              >
                 {specialization.name}
               </option>
             ))}
@@ -362,41 +386,20 @@ export const CreateAdmin = () => {
           ></textarea>
         </div>
         <div>
-          <label className="block text-sm font-medium text-slate-900">Permissions:</label>
+          <label className="block text-sm font-medium text-slate-900">
+            Permissions:
+          </label>
           <div className="space-y-2 space-x-2 text-slate-900">
-            <label>
-              <input
-                type="checkbox"
-                value="1"
-                onChange={handlePermissionChange}
-              />
-              Create Actor
-            </label>
-            <label>
-              <input
-                type="checkbox"
-                value="2"
-                onChange={handlePermissionChange}
-              />
-              Update Actor
-            </label>
-            <label>
-              <input
-                type="checkbox"
-                value="3"
-                onChange={handlePermissionChange}
-              />
-              Delete Actor
-            </label>
-            <label>
-              <input
-                type="checkbox"
-                value="4"
-                onChange={handlePermissionChange}
-              />
-              Show Actor
-            </label>
-            {/* Add more permissions as necessary */}
+            {permissions.map((perm) => (
+              <label key={perm.id}>
+                <input
+                  type="checkbox"
+                  value={perm.id}
+                  onChange={handlePermissionChange}
+                />
+                {perm.name}
+              </label>
+            ))}
           </div>
         </div>
 

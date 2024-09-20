@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { Nav } from "../Layout/Nav";
 
 export const CreateClinic = () => {
   const [success, setSuccess] = useState(false);
@@ -108,6 +109,7 @@ export const CreateClinic = () => {
 
   return (
     <div className="flex flex-col items-center justify-center gap-4  mt-4  ">
+      <Nav/>
       <h1 className="text-4xl bg-gradient-to-tl text-center leading-relaxed from-indigo-600 to-sky-500 bg-clip-text text-transparent ">
         Create Clinic
       </h1>

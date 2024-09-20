@@ -8,14 +8,14 @@ import { Navigate } from "react-router-dom";
 import { CreateAdmin } from "./pages/CreateAdmin";
 import { AdminDashboard } from "./pages/AdminDaghboard";
 import { CreateClinic } from "./pages/CreateClinic";
-
+import { AdminDetails } from "./pages/AdminDetails";
 function App() {
   const { user } = useAuth();
   console.log(user);
   const isSuperAdmin = user && user.role.id === 1;
   return (
     <>
- <Routes>
+      <Routes>
         <Route
           path="/login"
           element={
@@ -42,27 +42,25 @@ function App() {
             ) : (
               <Login />
             )
+          }
+        />
+        <Route
+          path="/admin/:adminId"
+          element={
+            user && isSuperAdmin ? <AdminDetails /> : <Navigate to="/login" />
           }
         />
         {/* Super Admin protected routes */}
         <Route
           path="/CreateAdmin"
           element={
-            user && isSuperAdmin ? (
-              <CreateAdmin />
-            ) : (
-              <Navigate to="/login" />
-            )
+            user && isSuperAdmin ? <CreateAdmin /> : <Navigate to="/login" />
           }
         />
         <Route
           path="/CreateClinic"
           element={
-            user && isSuperAdmin ? (
-              <CreateClinic />
-            ) : (
-              <Navigate to="/login" />
-            )
+            user && isSuperAdmin ? <CreateClinic /> : <Navigate to="/login" />
           }
         />
         <Route
@@ -81,7 +79,10 @@ function App() {
         />
         <Route path="/admin" element={<AdminDashboard />} />
         {/* <Route path="/CreateAdmin" element={<CreateAdmin />} /> */}
-        <Route path="*" element={<Navigate to={user ? "/Dashboard" : "/login"} />} />
+        <Route
+          path="*"
+          element={<Navigate to={user ? "/Dashboard" : "/login"} />}
+        />
       </Routes>
     </>
   );
